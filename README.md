@@ -6,18 +6,18 @@ GNews API for Healthjump
 - [ ] Finding a news article with a specific title
 - [ ] Finding a news article with a specific author
 - [ ] Searching by keywords
-- [ ] Include a cache
+- [x] Include a cache
 
 ## Documentation:
 ### Articles Endpoint
 This endpoint selects the top articles from GNews's top headlines. Articles are sorted by the most recent publish date first.
 
-**HTTP Request**
+#### HTTP Request
 ```
 GET http://127.0.0.1:5000/articles?
 ```
 
-**Query Parameters**
+#### Query Parameters
 
 | **Parameter** | **Default** | **Description** |
 | --- | --- | --- |
