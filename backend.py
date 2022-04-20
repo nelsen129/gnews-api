@@ -30,9 +30,10 @@ class Articles(Resource):
     @cache.cached(timeout=10, key_prefix=cache_key)
     def get(self):
         num = request.args.get('num', 10)
+        topic = request.args.get('topic', None)
         query = request.args.get('q', None)
-        if query is None:
-            return json.loads(requests.get(f'https://gnews.io/api/v4/top-headlines?max={num}&token={API_KEY}').text) \
+        if query is None or topic is not None:
+            return json.loads(requests.get(f'https://gnews.io/api/v4/top-headlines?q={query}&topic={topic}&max={num}&token={API_KEY}').text) \
                 ['articles']
         return json.loads(requests.get(f'https://gnews.io/api/v4/search?q={query}&max={num}&token={API_KEY}').text)['articles']
 
