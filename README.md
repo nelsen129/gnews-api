@@ -3,9 +3,9 @@ GNews API for Healthjump
 
 ## Requirements:
 - [x] Fetching N news articles
-- [ ] Finding a news article with a specific title
-- [ ] Finding a news article with a specific author
-- [ ] Searching by keywords
+- [ ] Finding a news article with a specific topic
+- [ ] Finding a news article with a specific start or end date
+- [x] Searching by keywords
 - [x] Include a cache
 
 ## Documentation:
@@ -22,3 +22,4 @@ GET http://127.0.0.1:5000/articles?
 | **Parameter** | **Default** | **Description** |
 | --- | --- | --- |
 | num | 10 | Number of articles to return. **100** is the maximum value | 
+| q | None | Filter for articles that match keywords. If using this, it will search all of GNews's articles and not just the top articles |
