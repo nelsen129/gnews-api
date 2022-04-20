@@ -32,17 +32,32 @@ class Articles(Resource):
         num = request.args.get('num', 10)
         topic = request.args.get('topic', None)
         query = request.args.get('q', None)
-        if query is None or topic is not None:
-            return json.loads(requests.get(f'https://gnews.io/api/v4/top-headlines?q={query}&topic={topic}&max={num}&token={API_KEY}').text) \
-                ['articles']
-        return json.loads(requests.get(f'https://gnews.io/api/v4/search?q={query}&max={num}&token={API_KEY}').text)['articles']
+        from_date = request.args.get('from', None)
+        to_date = request.args.get('to', None)
 
+        req_queries = [
+            f'num={num}',
+            f'q={query}',
+            f'from={from_date}',
+            f'to={to_date}'
+        ]
+        if topic is not None:
+            req_queries.append(f'topic={topic}')
+
+        req_queries.append(f'token={API_KEY}')
+
+        request_str = 'https://gnews.io/api/v4/'
+        if topic is not None or query is None:
+            request_str += 'top-headlines?'
+        else:
+            request_str += 'search?'
+        request_str += '&'.join(req_queries)
+
+        return json.loads(requests.get(request_str).text)['articles']
 
 
 api.add_resource(Articles, '/articles')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    # x = requests.get('https://gnews.io/api/v4/search?q=example&token=' + API_KEY)
-    # print(x)
+    app.run()
